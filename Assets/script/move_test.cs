@@ -84,7 +84,6 @@ public class move_test : MonoBehaviour
         //‰ñ“]Œn
         //¡‚Ìƒ[ƒJƒ‹‰ñ“]‚ðŽæ“¾‚µCã‰º•ûŒü‚Ì‰ñ“]Šp‚ð§ŒÀ‚µCƒ}ƒEƒX‚Ìy“ü—Í‚ð‡¬@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚ª‚ ‚è‚»‚¤
         Vector3 rotation = transform.localEulerAngles;
-        Debug.Log(rotation);
         float rotation_powerX = 0;
         if (rotation.x >= 310f || rotation.x <= 50f)
         {
@@ -106,6 +105,7 @@ public class move_test : MonoBehaviour
         Vector3 Nowrotation = transform.rotation.eulerAngles;
         transform.rotation = Quaternion.Euler(Nowrotation.x, Nowrotation.y, 0f);
 
+        //ƒJƒƒ‰Œn
         fpsCamera.SetActive(false);
         camera1.SetActive(false);
         camera2.SetActive(false);
@@ -142,6 +142,7 @@ public class move_test : MonoBehaviour
     }
     public void OnChangeCamera(InputAction.CallbackContext context)
     {
+        //‰Ÿ‚³‚ê‚½1ƒtƒŒ[ƒ€‚Ì‚ÝŒÄ‚Ño‚·
         if (context.performed)
         {
             Cameranum = (Cameranum + 1) % 3;
