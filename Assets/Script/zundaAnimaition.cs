@@ -123,7 +123,6 @@ public class zundaAnimaition : MonoBehaviour
     {
         charaMove = context.ReadValue<Vector2>();
         charaMove = new Vector2(Mathf.Round(charaMove.x), Mathf.Round(charaMove.y));
-        Debug.Log(charaMove);
     }
 
     
@@ -132,7 +131,6 @@ public class zundaAnimaition : MonoBehaviour
         if (charaCon.isGrounded && context.phase == InputActionPhase.Performed)
         {
             animator.SetBool("jump", true);
-            Debug.Log(charaMove);
         }
     }
 
