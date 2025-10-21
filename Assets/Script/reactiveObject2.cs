@@ -1,55 +1,71 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class reactiveObject2 : MonoBehaviour
 {
-    //このスクリプトは却下
+    //このスクリプトはドアオブジェクトにくっつけて（自機にplayer、敵にenemyというタグをつけて）
     public int activeID = 0;
-    public float openDistance = 1f;
-    private Vector3 closePos, openPos;
-    private bool firstEnter = true;
-
+    private float openAng;
+    private Quaternion closePos;
+    private bool keyCheck = false;
+    [SerializeField] GameObject forward, back;
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("player"))
+        Transform doorshaft = transform.parent.parent;
+        closePos = doorshaft.localRotation;
+
+
+        if (other.CompareTag("player") && Input.GetKey(KeyCode.F) && keyCheck == false)
         {
-            Transform doorbasis = transform.parent.parent;
-            closePos = doorbasis.position;
-            if(firstEnter)
-            {
-                openPos = closePos + new Vector3(openDistance, 0, 0);
-                firstEnter = false;
-            }
-            
-
-
             Debug.Log("触ってる");
             inventory inv = other.GetComponent<inventory>();
 
             if (inv.checkItem(activeID))
             {
                 StartCoroutine(DoorOpen());
-                //StartCoroutine(DoorHit());
+                StartCoroutine(DoorHit());
+                inv.delItem(activeID);
+                keyCheck = true;
             }
+        }
+        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F) )|| other.CompareTag("enemy")) && keyCheck == true)
+        {
+            StartCoroutine(DoorOpen());
+            StartCoroutine(DoorHit());
         }
     }
     private IEnumerator DoorOpen()
     {
         Debug.Log("開く");
         Debug.Log(closePos);
-        Transform doorbasis = transform.parent.parent;
-        //Transform doorbasis = transform.Find("doorbasis");
+        Transform doorbasis = transform.parent.parent.parent;
         float openTime = 0.5f;
-        float waitTime = 0.0f;
+        float waitTime = 0f;
+
+
+        forwardjudge fJudge = forward.GetComponent<forwardjudge>();
+        backjudge bJudge = back.GetComponent<backjudge>();
+        if (fJudge.forwardenter())
+        {
+            openAng = -130f;
+        }
+        else if (bJudge.backenter())
+        {
+            openAng = 130f;
+        }
+
+
+        Quaternion openPos = closePos * Quaternion.Euler(0, openAng, 0);
 
         while (waitTime < openTime)
         {
             waitTime += Time.deltaTime;
             float openState = waitTime / openTime;
-
-            //Lerpは線形補完、一つ目の要素と二つ目の要素の間を３つ目の要素の状態で移動
-            doorbasis.position = Vector3.Lerp(closePos, openPos, openState);
+            
+            //quaternion.slerp – 球面線形補間、一つ目の要素と二つ目の要素の間を３つ目の要素の状態で移動
+            doorbasis.localRotation = Quaternion.Slerp(closePos, openPos, openState);
 
             yield return null;
         }
@@ -60,14 +76,14 @@ public class reactiveObject2 : MonoBehaviour
             waitTime += Time.deltaTime;
             float openState = waitTime / openTime;
 
-            doorbasis.position = Vector3.Lerp(openPos, closePos, openState);
+            doorbasis.localRotation = Quaternion.Slerp(openPos, closePos, openState);
 
             yield return null;
         }
-        doorbasis.position = closePos;
+        doorbasis.localRotation = closePos;
     }
 
-    /*
+
     private IEnumerator DoorHit()
     {
         GameObject doorslide = transform.parent.gameObject;
@@ -76,7 +92,7 @@ public class reactiveObject2 : MonoBehaviour
             Collider col = children.GetComponent<Collider>();
             col.enabled = false;
         }
-        yield return new WaitForSeconds(2.1f);
+        yield return new WaitForSeconds(2.2f);
         foreach (Transform children in doorslide.transform)
         {
             Collider col = children.GetComponent<Collider>();
@@ -84,5 +100,4 @@ public class reactiveObject2 : MonoBehaviour
         }
         yield return null;
     }
-    */
 }

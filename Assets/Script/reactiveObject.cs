@@ -9,7 +9,7 @@ public class reactiveObject : MonoBehaviour
     private Vector3 closePos;
     private bool keyCheck = false;
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         Transform doorbasis = transform.parent.parent;
         closePos = doorbasis.position;
@@ -25,11 +25,10 @@ public class reactiveObject : MonoBehaviour
                 StartCoroutine(DoorOpen());
                 StartCoroutine(DoorHit());
                 inv.delItem(activeID);
+                keyCheck = true;
             }
-
-            keyCheck = true;
         }
-        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F) )|| other.CompareTag("enemy")) && keyCheck)
+        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F) )|| other.CompareTag("enemy")) && keyCheck == true)
         {
             StartCoroutine(DoorOpen());
             StartCoroutine(DoorHit());
@@ -41,7 +40,7 @@ public class reactiveObject : MonoBehaviour
         Debug.Log(closePos);
         Transform doorbasis = transform.parent.parent;
         float openTime = 0.5f;
-        float waitTime = 0.0f;
+        float waitTime = 0f;
         Vector3 openPos = closePos + new Vector3(openDistance, 0, 0);
 
         while (waitTime < openTime)

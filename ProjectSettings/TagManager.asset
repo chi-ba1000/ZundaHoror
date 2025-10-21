@@ -6,6 +6,9 @@ TagManager:
   tags:
   - zundamon
   - player
+  - enemy
+  - forward
+  - back
   layers:
   - Default
   - TransparentFX
