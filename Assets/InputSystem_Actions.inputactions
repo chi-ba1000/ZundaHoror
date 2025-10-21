@@ -88,12 +88,12 @@
                 },
                 {
                     "name": "ChangeCamera",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "6fcfe0ea-fd49-46b7-9da1-e2a337040408",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

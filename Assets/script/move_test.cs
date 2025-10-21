@@ -10,6 +10,9 @@ public class move_test : MonoBehaviour
     public float jumppower;
     public float sensitivity;
     public float framepermove;
+    public float minAngle;
+    public float maxAngle;
+    public Transform neck;
     public GameObject fpsCamera;
     public GameObject camera1;
     public GameObject camera2;
@@ -19,10 +22,12 @@ public class move_test : MonoBehaviour
     private int Cameranum;
     private float speed;
     private float ypower;
+    private float rotation_powerX = 26.395f;//‚±‚Ì”Žš‚ÍƒfƒtƒH‚ÌNeck‚ÌŠp“x
     private Vector2 move;
     private Vector2 mouse_input;
     private Vector3 inertia;
     private Vector3 gravity;
+    private Vector3 neckrotation;
     private CharacterController character;
 
     void Start()
@@ -79,31 +84,24 @@ public class move_test : MonoBehaviour
         gravity.y += ypower + Physics.gravity.y * Time.deltaTime;
         Vector3 move_dsp = new Vector3(inertia.x, 1.0f * gravity.y * Time.deltaTime, inertia.z);
         character.Move(move_dsp);
-
-
+    }
+    private void LateUpdate()
+    {
         //‰ñ“]Œn
-        //¡‚Ìƒ[ƒJƒ‹‰ñ“]‚ðŽæ“¾‚µCã‰º•ûŒü‚Ì‰ñ“]Šp‚ð§ŒÀ‚µCƒ}ƒEƒX‚Ìy“ü—Í‚ð‡¬@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚ª‚ ‚è‚»‚¤
-        Vector3 rotation = transform.localEulerAngles;
-        float rotation_powerX = 0;
-        if (rotation.x >= 310f || rotation.x <= 50f)
-        {
-            rotation_powerX = sensitivity * 0.01f * -mouse_input.y;
-        }
-        else if (rotation.x < 310f && rotation.x > 180f && -mouse_input.y > 0f)
-        {
-            rotation_powerX = sensitivity * 0.01f * -mouse_input.y;
-        }
-        else if (rotation.x > 50f && rotation.x < 180f && -mouse_input.y < 0f)
-        {
-            rotation_powerX = sensitivity * 0.01f * -mouse_input.y;
-        }
-
         //ƒ}ƒEƒX‚Ìx“ü—Í‚ð‡¬‚µC‚»‚ê‚¼‚ê‚Ì‰ñ“]‚ð‚³‚¹‚é
         float rotation_powerY = sensitivity * 0.01f * mouse_input.x;
-        transform.Rotate(rotation_powerX, rotation_powerY, 0, Space.Self);
-        //zŽ²Žü‚è‚Ì‰ñ“]‚ðŒÅ’è‚µ‚È‚¢‚Æ‚«‚à‚¢‚Ì‚Å¡‚Ì‰ñ“]Šp‚ðŽæ“¾‚µCzŽ²Žü‚è‚¾‚¯0‚É‚·‚é
-        Vector3 Nowrotation = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(Nowrotation.x, Nowrotation.y, 0f);
+        transform.Rotate(0, rotation_powerY, 0, Space.Self);
+        //¡‚Ìƒ[ƒJƒ‹‰ñ“]‚ðŽæ“¾‚µCã‰º•ûŒü‚Ì‰ñ“]Šp‚ð§ŒÀ‚µCƒ}ƒEƒX‚Ìy“ü—Í‚ð‡¬@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚ª‚ ‚è‚»‚¤
+        Vector3 rotation = neck.localEulerAngles;
+        
+        rotation_powerX += sensitivity * 0.01f * -mouse_input.y;
+
+        rotation_powerX = Mathf.Clamp(rotation_powerX, minAngle, maxAngle);
+
+        neck.localRotation = Quaternion.Euler(rotation_powerX, 0, 0);
+
+        fpsCamera.transform.localRotation = Quaternion.Euler(rotation_powerX - 26.395f, 0, 0);
+
 
         //ƒJƒƒ‰Œn
         fpsCamera.SetActive(false);
@@ -134,7 +132,14 @@ public class move_test : MonoBehaviour
     }
     public void Onjump(InputAction.CallbackContext context)
     {
-        isJump = context.ReadValueAsButton();
+        if (context.performed)
+        {
+            isJump = true;
+        }
+        else
+        {
+            isJump = false;
+        }
     }
     public void Onlook(InputAction.CallbackContext context)
     {
