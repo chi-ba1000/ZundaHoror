@@ -1,16 +1,21 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI; // NavMeshAgentを使うために必要
+using UnityEngine.AI;
+using UnityEngine.InputSystem; // NavMeshAgentを使うために必要
 
 public class EnemyController : MonoBehaviour
 {
     public Transform player; // 追いかける対象（プレイヤー）を格納する変数
     public float attackdistance;
     public float rotationSpeed;
+    public float searchdistance;
     public Wepon wepon;
     public knifethrower knifethrower;
+    public Vector3 eyeposition;
     private NavMeshAgent agent; // NavMeshAgentコンポーネントを格納する変数
     private Animator anim;
     private Vector3 position;
+    private bool isSprint;
 
     void Start()
     {
@@ -27,10 +32,14 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = Vector3.Distance(transform.position + eyeposition, player.position + new Vector3(0f, 1.2f, 0f));
+        Vector3 eyePosition = transform.position + eyeposition;
+        Vector3 playerCenter = player.position + Vector3.up * 1.0f;
+        Vector3 directionToPlayer = (playerCenter - eyePosition).normalized;
+
         if (distance < attackdistance)
         {
-            
+
             agent.isStopped = true;
             anim.SetBool("idle", true);
             anim.SetBool("walk", false);
@@ -47,20 +56,71 @@ public class EnemyController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 knifethrower.Throw();
             }
-            
+
         }
-        // プレイヤーが設定されていれば、その位置を目的地に設定し続ける
-        else if (player != null && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        else if (distance < searchdistance)
         {
             agent.isStopped = false;
-            agent.SetDestination(player.position);
-            anim.SetBool("walk", true);
-            anim.SetBool("idle", false);
+            Debug.Log(distance);
+            RaycastHit hit;
+            if (Physics.Raycast(eyePosition, directionToPlayer, out hit, searchdistance))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    agent.SetDestination(player.position);
+                    anim.SetBool("walk", true);
+                    anim.SetBool("idle", false);
+                    Debug.Log("detect");
+                }               
+            }
         }
+        
 
     }
     public enum Wepon
     {
         none,throwableknife
+    }
+    void OnDrawGizmosSelected()
+    {
+        // 索敵範囲の円
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, searchdistance);
+
+        // 視線のデバッグ表示
+        if (player != null)
+        {
+            Vector3 eyePosition = transform.position + eyeposition;
+            Vector3 playerCenter = player.position + Vector3.up * 1.0f;
+            Vector3 directionToPlayer = (playerCenter - eyePosition).normalized;
+
+            RaycastHit hit;
+            // Rayを飛ばしてみて、何に当たったかで色を変える
+            if (Physics.Raycast(eyePosition, directionToPlayer, out hit, searchdistance))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    // プレイヤーに届いている（緑）
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(eyePosition, hit.point);
+                }
+                else
+                {
+                    // 壁に遮られている（赤）
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(eyePosition, hit.point);
+                }
+            }
+            else
+            {
+                // 誰にも当たらない（グレー）
+                Gizmos.color = Color.gray;
+                Gizmos.DrawRay(eyePosition, directionToPlayer * searchdistance);
+            }
+        }
+    }
+    public void Makenoise()
+    {
+        agent.SetDestination(player.position);
     }
 }

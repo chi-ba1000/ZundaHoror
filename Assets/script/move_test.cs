@@ -16,6 +16,7 @@ public class move_test : MonoBehaviour
     public GameObject fpsCamera;
     public GameObject camera1;
     public GameObject camera2;
+    public EnemyController  makenoise;
 
     private bool isSprint;
     private bool isJump;
@@ -42,6 +43,13 @@ public class move_test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (move != new Vector2 (0f,0f) && isSprint)
+        {
+            makenoise.Makenoise();
+        }
+        {
+            
+        }
         //ˆÚ“®Œn
         //Še•ûŒü‚É‘Î‚µ‚ÄˆÙ‚È‚éˆÚ“®‘¬“x‚Ì‘ã“ü
         if (move.y > 0f)

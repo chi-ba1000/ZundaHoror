@@ -262,9 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b94e2bc228004478edebc1568939c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardspeed: 10
+  forwardspeed: 5
   movespeed: 5
-  sprintspeed: 50
+  sprintspeed: 10
   jumppower: 6
   sensitivity: 10
   framepermove: 1
@@ -505,6 +505,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1981f41506cff479a3d11f523689fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &194825896
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194825887}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.32
+  m_Height: 1.63
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.72, z: 0}
 --- !u!1 &237651348
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,8 +1017,10 @@ MonoBehaviour:
   player: {fileID: 194825890}
   attackdistance: 10
   rotationSpeed: 2
+  searchdistance: 30
   wepon: 1
   knifethrower: {fileID: 520849083}
+  eyeposition: {x: 0, y: 2, z: 0}
 --- !u!195 &520849086
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1698,13 +1723,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791910153}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.00068656675, y: 0.00089924416, z: -0.002015427, w: 0.9999973}
   m_LocalPosition: {x: 6.92, y: 1.19, z: -1.02}
   m_LocalScale: {x: 1, y: 2.763, z: 3.7425}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.078, y: 0.103, z: -0.231}
 --- !u!54 &791910158
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1887,7 +1912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spotlight: {fileID: 1128101249}
-  canReuse: 0
+  canReuse: 1
 --- !u!136 &871089597
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2387,6 +2412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Female Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 6496078053824878311, guid: 733d716cfcee2e842867d36447ca8ffa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2396,10 +2425,10 @@ PrefabInstance:
       addedObject: {fileID: 1610924949}
     - targetCorrespondingSourceObject: {fileID: 6496078053824878311, guid: 733d716cfcee2e842867d36447ca8ffa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1610924948}
+      addedObject: {fileID: 1610924952}
     - targetCorrespondingSourceObject: {fileID: 6496078053824878311, guid: 733d716cfcee2e842867d36447ca8ffa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1610924952}
+      addedObject: {fileID: 1610924955}
   m_SourcePrefab: {fileID: 100100000, guid: 733d716cfcee2e842867d36447ca8ffa, type: 3}
 --- !u!4 &1128101248 stripped
 Transform:
@@ -2561,7 +2590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3490026887102114920, guid: e0a2ae8d8ae1c1f4b83e337da0b6f6b4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3490026887102114920, guid: e0a2ae8d8ae1c1f4b83e337da0b6f6b4, type: 3}
       propertyPath: m_TagString
@@ -4946,23 +4975,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6496078053824878311, guid: 733d716cfcee2e842867d36447ca8ffa, type: 3}
   m_PrefabInstance: {fileID: 1096372854}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1610924948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610924947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937d7068968d61a47b3d32182fe5f248, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 194825890}
-  attackdistance: 2
-  rotationSpeed: 0
-  wepon: 0
-  knifethrower: {fileID: 0}
 --- !u!195 &1610924949
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5007,7 +5019,26 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.98, z: 0}
+  m_Center: {x: 0, y: 0.44, z: 0}
+--- !u!114 &1610924955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610924947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937d7068968d61a47b3d32182fe5f248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 194825890}
+  attackdistance: 1.5
+  rotationSpeed: 0
+  searchdistance: 30
+  wepon: 0
+  knifethrower: {fileID: 0}
+  eyeposition: {x: 0, y: 1.7, z: 0}
 --- !u!1001 &1633178696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5096,6 +5127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3334023339453897818, guid: 946a54ec4eb6ad94190ba744a5a35d41, type: 3}
       insertIndex: -1
       addedObject: {fileID: 194825895}
+    - targetCorrespondingSourceObject: {fileID: 3334023339453897818, guid: 946a54ec4eb6ad94190ba744a5a35d41, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 194825896}
   m_SourcePrefab: {fileID: 100100000, guid: 946a54ec4eb6ad94190ba744a5a35d41, type: 3}
 --- !u!1 &1838950455
 GameObject:
