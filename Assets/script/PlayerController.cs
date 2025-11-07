@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class move_test : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float forwardspeed;
     public float movespeed;
@@ -43,6 +43,7 @@ public class move_test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ダッシュ移動してるときMakenoiseを発火させる
         if (move != new Vector2 (0f,0f) && isSprint)
         {
             makenoise.Makenoise();
@@ -160,6 +161,15 @@ public class move_test : MonoBehaviour
         {
             Cameranum = (Cameranum + 1) % 3;
             Debug.Log(Cameranum);
+        }
+    }
+
+    //ダメージ処理Enemyタグつけてるオブジェクトに当たったとき発火
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("Death");
         }
     }
 

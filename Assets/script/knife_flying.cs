@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class knife_flying : MonoBehaviour
@@ -10,6 +11,7 @@ public class knife_flying : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         transform.Rotate(0, 90, 0);
         rb.AddRelativeForce(power, ForceMode.Impulse);
+        Destroy(gameObject, 3.0f);
     }
 
     // Update is called once per frame
