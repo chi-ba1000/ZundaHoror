@@ -30,7 +30,7 @@ public class reactiveObject2 : MonoBehaviour
                 keyCheck = true;
             }
         }
-        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F) )|| other.CompareTag("enemy")) && keyCheck == true)
+        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F))|| other.CompareTag("enemy")) && keyCheck == true)
         {
             StartCoroutine(DoorOpen());
             StartCoroutine(DoorHit());
