@@ -614,7 +614,7 @@ Material:
     - _ShadowStrength: 1
     - _ShadowStrengthMaskLOD: 0
     - _ShiftBackfaceUV: 0
-    - _Smoothness: 0.25
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularBlur: 0
     - _SpecularBorder: 0.5
@@ -800,7 +800,7 @@ Material:
     - _egc7: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &4610449036437327679
+--- !u!114 &6987439240448891370
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
