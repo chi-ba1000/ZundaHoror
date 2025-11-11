@@ -7,7 +7,7 @@ public class pickedItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("player"))
+        if(other.CompareTag("Player"))
         {
             Debug.Log("触ってる");
             inventory inv = other.GetComponent<inventory>();

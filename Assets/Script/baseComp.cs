@@ -144,7 +144,7 @@ public class baseComp : MonoBehaviour
                 }
             }
         }
-        if (allSetCheck.keyC == false && other.CompareTag("player") && Input.GetKey(KeyCode.F))
+        if (allSetCheck.keyC == false && other.CompareTag("Player") && Input.GetKey(KeyCode.F))
         {
             inv = other.GetComponent<inventory>();
             if (item1B)

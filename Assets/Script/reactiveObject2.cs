@@ -17,7 +17,7 @@ public class reactiveObject2 : MonoBehaviour
         closePos = doorshaft.localRotation;
 
 
-        if (other.CompareTag("player") && Input.GetKey(KeyCode.F) && keyCheck == false)
+        if (other.CompareTag("Player") && Input.GetKey(KeyCode.F) && keyCheck == false)
         {
             Debug.Log("触ってる");
             inventory inv = other.GetComponent<inventory>();
@@ -30,7 +30,7 @@ public class reactiveObject2 : MonoBehaviour
                 keyCheck = true;
             }
         }
-        else if (((other.CompareTag("player") && Input.GetKey(KeyCode.F))|| other.CompareTag("enemy")) && keyCheck == true)
+        else if (((other.CompareTag("Player") && Input.GetKey(KeyCode.F))|| other.CompareTag("Enemy")) && keyCheck == true)
         {
             StartCoroutine(DoorOpen());
             StartCoroutine(DoorHit());

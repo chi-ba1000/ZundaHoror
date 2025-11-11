@@ -79,7 +79,7 @@ public class daiza : MonoBehaviour
     {
         for (int i = 0; i <= 4; i++)
         {
-            if (other.CompareTag("player") && Input.GetKey(keyCode[i]) && put ==false)
+            if (other.CompareTag("Player") && Input.GetKey(keyCode[i]) && put ==false)
             {
                 Debug.Log("触ってる");
                 inv = other.GetComponent<inventory>();
@@ -150,7 +150,7 @@ public class daiza : MonoBehaviour
                 }
             }
         }
-        if (allSetCheck.keyC == false && other.CompareTag("player") && Input.GetKey(KeyCode.F))
+        if (allSetCheck.keyC == false && other.CompareTag("Player") && Input.GetKey(KeyCode.F))
         {
             inv = other.GetComponent<inventory>();
             if (blackB)

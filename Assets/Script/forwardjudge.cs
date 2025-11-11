@@ -5,7 +5,7 @@ public class forwardjudge : MonoBehaviour
     private bool enter = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("player") || other.CompareTag("enemy"))
+        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
             enter = true;
         }
