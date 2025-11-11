@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - zundamon
+  - player
+  - enemy
+  - forward
+  - back
   - Enemy
   layers:
   - Default
