@@ -12,15 +12,15 @@ public class PlayerController : MonoBehaviour
     public float framepermove;
     public float minAngle;
     public float maxAngle;
+    public float rayoffset;
+    public float grounddetect;
     public Transform neck;
     public GameObject fpsCamera;
-    public GameObject camera1;
-    public GameObject camera2;
     public EnemyController  makenoise;
 
     private bool isSprint;
     private bool isJump;
-    private int Cameranum;
+    private bool isGround;
     private float speed;
     private float ypower;
     private float rotation_powerX = 26.395f;//この数字はデフォのNeckの角度
@@ -34,9 +34,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         character = GetComponent<CharacterController>();
-        fpsCamera.SetActive(true);
-        camera1.SetActive(false);
-        camera2.SetActive(false);
 
     }
 
@@ -69,14 +66,26 @@ public class PlayerController : MonoBehaviour
             speed = movespeed;
         }
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up * rayoffset, Vector3.down, out hit, grounddetect))
+        {
+            isGround = true;
+        }
+        else
+        {
+            isSprint = false;
+        }
 
-        //接地時と滞空時の処理
-        if (isJump && character.isGrounded)
+
+
+            //接地時と滞空時の処理
+            if (isJump && isGround)
         {
             ypower = jumppower;
         }
-        else if (character.isGrounded)
+        else if (isGround)
         {
+            Debug.Log("grounded");
             //接地しているとき，キー入力を受け取り前フレームの変位を入力された値に徐々に変化させる
             Vector3 newinertia = transform.TransformDirection(new Vector3(move.x * speed * 0.01f, 0f, move.y * speed * 0.01f));
             inertia = Vector3.MoveTowards(inertia, newinertia, framepermove * Time.deltaTime);
@@ -92,6 +101,8 @@ public class PlayerController : MonoBehaviour
         //重力を手動で定義し，キー入力と合成しキャラクターを動かす
         gravity.y += ypower + Physics.gravity.y * Time.deltaTime;
         Vector3 move_dsp = new Vector3(inertia.x, 1.0f * gravity.y * Time.deltaTime, inertia.z);
+        Debug.Log(move_dsp);
+        Debug.Log(move_dsp);
         character.Move(move_dsp);
     }
     private void LateUpdate()
@@ -110,24 +121,6 @@ public class PlayerController : MonoBehaviour
         neck.localRotation = Quaternion.Euler(rotation_powerX, 0, 0);
 
         fpsCamera.transform.localRotation = Quaternion.Euler(rotation_powerX - 26.395f, 0, 0);
-
-
-        //カメラ系
-        fpsCamera.SetActive(false);
-        camera1.SetActive(false);
-        camera2.SetActive(false);
-        if (Cameranum == 0)
-        {
-            fpsCamera.SetActive(true);
-        }
-        if (Cameranum == 1)
-        {
-            camera1.SetActive(true);
-        }
-        if (Cameranum == 2)
-        {
-            camera2.SetActive(true);
-        }
     }
 
     //InputAction系
@@ -154,15 +147,6 @@ public class PlayerController : MonoBehaviour
     {
         mouse_input = context.ReadValue<Vector2>();
     }
-    public void OnChangeCamera(InputAction.CallbackContext context)
-    {
-        //押された1フレームのみ呼び出す
-        if (context.performed)
-        {
-            Cameranum = (Cameranum + 1) % 3;
-            Debug.Log(Cameranum);
-        }
-    }
 
     //ダメージ処理Enemyタグつけてるオブジェクトに当たったとき発火
     public void OnTriggerEnter(Collider other)
@@ -173,4 +157,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        // 接地判定時は緑、空中にいるときは赤にする
+        Gizmos.color = isGround ? Color.green : Color.red;
+        Gizmos.DrawRay(transform.position + Vector3.up * rayoffset, Vector3.down * grounddetect);
+    }
 }

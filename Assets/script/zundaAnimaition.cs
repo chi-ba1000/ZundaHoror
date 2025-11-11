@@ -19,7 +19,6 @@ public class zundaAnimaition : MonoBehaviour
     {
         if (charaCon.isGrounded)
         {
-            animator.SetBool("jump", false);
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 resetwalkrun();

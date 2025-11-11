@@ -15,7 +15,6 @@ public class spotlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"åªç›ÇÃécó {NOWspotlightHP}");
         if (NOWspotlightHP <= 0)
         {
             lightobject.SetActive(false);

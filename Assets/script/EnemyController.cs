@@ -94,7 +94,6 @@ public class EnemyController : MonoBehaviour
             //でないときランダムウォーク
             else
             {
-                Debug.Log(agent.remainingDistance);
                 if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
                 {
                     WaitforNewDest();
