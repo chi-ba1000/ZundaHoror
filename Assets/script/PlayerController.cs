@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Transform neck;
     public GameObject fpsCamera;
     public EnemyController  makenoise;
+    public AudioClip walkSound;
 
     private bool isSprint;
     private bool isJump;
@@ -30,10 +32,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 gravity;
     private Vector3 neckrotation;
     private CharacterController character;
+    private AudioSource AudioSource;
+    private bool isWalk;
 
     void Start()
     {
         character = GetComponent<CharacterController>();
+        AudioSource = GetComponent<AudioSource>();
 
     }
 
@@ -41,13 +46,24 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //ダッシュ移動してるときMakenoiseを発火させる
-        if (move != new Vector2 (0f,0f) && isSprint)
+        if (move != new Vector2(0f, 0f))
         {
-            makenoise?.Makenoise();
+            if (isSprint)
+            {
+                makenoise?.Makenoise();
+            }
+            if (!isWalk)
+            {
+                StartCoroutine(Sounds());
+            }
+            isWalk = true;
+
         }
+        else
         {
-            
+            isWalk = false;
         }
+
         //移動系
         //各方向に対して異なる移動速度の代入
         if (move.y > 0f)
@@ -160,5 +176,24 @@ public class PlayerController : MonoBehaviour
         // 接地判定時は緑、空中にいるときは赤にする
         Gizmos.color = isGround ? Color.green : Color.red;
         Gizmos.DrawRay(transform.position + Vector3.up * rayoffset, Vector3.down * grounddetect);
+    }
+
+    private IEnumerator Sounds()
+    {
+        Debug.Log("sound");
+        if (isSprint)
+        {
+            AudioSource.pitch = 2.0f;
+            AudioSource.PlayOneShot(walkSound);
+            yield return new WaitForSeconds(0.5f);
+        }
+        else
+        {
+            AudioSource.pitch = 1.0f;
+            AudioSource.PlayOneShot(walkSound);
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        isWalk = false;
     }
 }
