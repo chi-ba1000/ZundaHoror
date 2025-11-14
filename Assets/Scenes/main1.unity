@@ -88309,16 +88309,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3082809073358166925, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
+      propertyPath: jumppower
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3082809073358166925, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
       propertyPath: makenoise
       value: 
       objectReference: {fileID: 1190939584}
+    - target: {fileID: 3082809073358166925, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
+      propertyPath: framepermove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3082809073358166925, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
       propertyPath: grounddetect
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8208066893268742623, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.96
+      value: 1.819
       objectReference: {fileID: 0}
     - target: {fileID: 8208066893268742623, guid: 5d809bb215550f44c94816b6cd8be2e2, type: 3}
       propertyPath: m_LocalPosition.y

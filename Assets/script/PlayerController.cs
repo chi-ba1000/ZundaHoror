@@ -73,14 +73,16 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            isSprint = false;
+            isGround = false;
+            isJump = false;
         }
 
 
 
             //Ú’n‚Æ‘Ø‹ó‚Ìˆ—
-            if (isJump && isGround)
+        if (isJump && isGround)
         {
+            Debug.Log("jump");
             ypower = jumppower;
         }
         else if (isGround)
@@ -134,13 +136,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Onjump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isJump == true)
         {
             isJump = true;
-        }
-        else
-        {
-            isJump = false;
         }
     }
     public void Onlook(InputAction.CallbackContext context)
