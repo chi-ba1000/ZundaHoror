@@ -4,16 +4,41 @@ using UnityEngine;
 public class reactiveObjectHondana : MonoBehaviour
 {
     //このスクリプトはドアオブジェクトにくっつけて（自機にplayer、敵にenemyというタグをつけて）
+    public int activeID = 0;
     public float openDistance = 1f;
+    public GameObject book;
+    public AudioClip slideSound;
     private Vector3 closePos;
-    
+    private bool keyCheck = false;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        book.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerStay(Collider other)
     {
         Transform doorbasis = transform.parent.parent;
         closePos = doorbasis.position;
 
 
-        if (((other.CompareTag("Player") && Input.GetKey(KeyCode.F) )|| other.CompareTag("Enemy")))
+        if (other.CompareTag("Player") && Input.GetKey(KeyCode.F) && keyCheck == false)
+        {
+            Debug.Log("触ってる");
+            inventory inv = other.GetComponent<inventory>();
+
+            if (inv.checkItem(activeID))
+            {
+                audioSource.PlayOneShot(slideSound);
+                book.SetActive(true);
+                StartCoroutine(DoorOpen());
+                StartCoroutine(DoorHit());
+                inv.delItem(activeID);
+                keyCheck = true;
+            }
+        }
+        else if (((other.CompareTag("Player") && Input.GetKey(KeyCode.F)) || other.CompareTag("Enemy")) && keyCheck == true)
         {
             StartCoroutine(DoorOpen());
             StartCoroutine(DoorHit());
@@ -32,7 +57,7 @@ public class reactiveObjectHondana : MonoBehaviour
         {
             waitTime += Time.deltaTime;
             float openState = waitTime / openTime;
-            
+
             //Lerpは線形補完、一つ目の要素と二つ目の要素の間を３つ目の要素の状態で移動
             doorbasis.position = Vector3.Lerp(closePos, openPos, openState);
 

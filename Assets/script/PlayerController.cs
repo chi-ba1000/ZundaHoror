@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Transform neck;
     public GameObject fpsCamera;
     public EnemyController  makenoise;
+    public AudioClip walkSound;
 
     private bool isSprint;
     private bool isJump;
@@ -30,26 +32,50 @@ public class PlayerController : MonoBehaviour
     private Vector3 gravity;
     private Vector3 neckrotation;
     private CharacterController character;
+    private AudioSource AudioSource;
+    private bool isWalk;
 
     void Start()
     {
         character = GetComponent<CharacterController>();
+        AudioSource = GetComponent<AudioSource>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         //ÔøΩ_ÔøΩbÔøΩVÔøΩÔøΩÔøΩ⁄ìÔøΩÔøΩÔøΩÔøΩƒÇÔøΩ∆ÇÔøΩMakenoiseÔøΩî≠âŒÇÔøΩÔøΩÔøΩÔøΩÔøΩ
         if (move != new Vector2 (0f,0f) && isSprint)
+=======
+        //É_ÉbÉVÉÖà⁄ìÆÇµÇƒÇÈÇ∆Ç´MakenoiseÇî≠âŒÇ≥ÇπÇÈ
+        if (move != new Vector2(0f, 0f))
+>>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
         {
-            makenoise?.Makenoise();
+            if (isSprint)
+            {
+                makenoise?.Makenoise();
+            }
+            if (!isWalk)
+            {
+                StartCoroutine(Sounds());
+            }
+            isWalk = true;
+
         }
+        else
         {
-            
+            isWalk = false;
         }
+<<<<<<< HEAD
         //ÔøΩ⁄ìÔøΩÔøΩn
         //ÔøΩeÔøΩÔøΩÔøΩÔøΩÔøΩ…ëŒÇÔøΩÔøΩƒàŸÇ»ÇÔøΩ⁄ìÔøΩÔøΩÔøΩÔøΩxÔøΩÃëÔøΩÔøΩ
+=======
+
+        //à⁄ìÆån
+        //äeï˚å¸Ç…ëŒÇµÇƒàŸÇ»ÇÈà⁄ìÆë¨ìxÇÃë„ì¸
+>>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
         if (move.y > 0f)
         {
             if (isSprint)
@@ -73,14 +99,21 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            isSprint = false;
+            isGround = false;
+            isJump = false;
         }
 
 
 
+<<<<<<< HEAD
             //ÔøΩ⁄ínÔøΩÔøΩÔøΩ∆ëÿãÛéûÇÃèÔøΩÔøΩÔøΩ
             if (isJump && isGround)
+=======
+            //ê⁄ínéûÇ∆ëÿãÛéûÇÃèàóù
+        if (isJump && isGround)
+>>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
         {
+            Debug.Log("jump");
             ypower = jumppower;
         }
         else if (isGround)
@@ -137,13 +170,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Onjump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isJump == true)
         {
             isJump = true;
-        }
-        else
-        {
-            isJump = false;
         }
     }
     public void Onlook(InputAction.CallbackContext context)
@@ -165,5 +194,24 @@ public class PlayerController : MonoBehaviour
         // ÔøΩ⁄ínÔøΩÔøΩÔøΩËéûÔøΩÕóŒÅAÔøΩÛíÜÇ…ÇÔøΩÔøΩÔøΩ∆ÇÔøΩÔøΩÕê‘Ç…ÇÔøΩÔøΩÔøΩ
         Gizmos.color = isGround ? Color.green : Color.red;
         Gizmos.DrawRay(transform.position + Vector3.up * rayoffset, Vector3.down * grounddetect);
+    }
+
+    private IEnumerator Sounds()
+    {
+        Debug.Log("sound");
+        if (isSprint)
+        {
+            AudioSource.pitch = 2.0f;
+            AudioSource.PlayOneShot(walkSound);
+            yield return new WaitForSeconds(0.5f);
+        }
+        else
+        {
+            AudioSource.pitch = 1.0f;
+            AudioSource.PlayOneShot(walkSound);
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        isWalk = false;
     }
 }
