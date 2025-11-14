@@ -2,15 +2,24 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+
 public class reactiveObject2 : MonoBehaviour
 {
     //このスクリプトはドアオブジェクトにくっつけて（自機にplayer、敵にenemyというタグをつけて）
     public int activeID = 0;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+    private AudioSource AudioSource;
     private float openAng;
     private Quaternion closePos;
     private bool keyCheck = false;
     [SerializeField] GameObject forward, back;
-    
+
+
+    private void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerStay(Collider other)
     {
         Transform doorshaft = transform.parent.parent;
@@ -66,6 +75,10 @@ public class reactiveObject2 : MonoBehaviour
             
             //quaternion.slerp – 球面線形補間、一つ目の要素と二つ目の要素の間を３つ目の要素の状態で移動
             doorbasis.localRotation = Quaternion.Slerp(closePos, openPos, openState);
+            if (!AudioSource.isPlaying)
+            {
+                AudioSource.PlayOneShot(openSound);
+            }
 
             yield return null;
         }
@@ -81,6 +94,10 @@ public class reactiveObject2 : MonoBehaviour
             yield return null;
         }
         doorbasis.localRotation = closePos;
+        if (!AudioSource.isPlaying)
+        {
+            AudioSource.PlayOneShot(closeSound);
+        }
     }
 
 
