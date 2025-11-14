@@ -14,7 +14,7 @@ namespace SimplestarGame
 
         void Start()
         {
-            playerObject = GameObject.FindWithTag("Player");
+            playerObject = GameObject.FindWithTag("player");
             inv = playerObject.GetComponent<inventory>();
         }
 

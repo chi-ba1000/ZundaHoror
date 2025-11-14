@@ -9,9 +9,6 @@ public class baseComp : MonoBehaviour
     [SerializeField] private string item1Name = "item1", item2Name = "item2", item3Name = "item3", item4Name = "item4", item5Name = "item5";
     private int[] activeID = new int[5];
     private bool item1B = false, item2B = false, item3B = false, item4B = false, item5B = false;
-    public AudioClip clearSound;
-    public AudioClip faultSound;
-    private AudioSource AudioSource;
     public int item1Id = 4, item2Id = 5, item3Id = 6, item4Id = 7, item5Id = 8;
     Item item1I, item2I, item3I, item4I, item5I;
     [HideInInspector] public bool put = false, item1C = false, item2C = false, item3C = false, item4C = false, item5C = false;
@@ -29,7 +26,6 @@ public class baseComp : MonoBehaviour
     [SerializeField] private whatItem choseItem;
     private Dictionary<whatItem, int> itemIdSet;
     private int setItem;
-
     void Awake()
     {
         //()はコンストラクタ設定時に必要空白だとからのインスタンス作成、()の中身を入れると中身の設計図に応じたインスタンスを作成
@@ -66,7 +62,6 @@ public class baseComp : MonoBehaviour
     }
     void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
         item1I = new Item(item1Name, item1Id); item2I = new Item(item2Name, item2Id);
         item3I = new Item(item3Name, item3Id); item4I = new Item(item4Name, item4Id); 
         item5I = new Item(item5Name, item5Id);
@@ -78,7 +73,7 @@ public class baseComp : MonoBehaviour
     {
         for (int i = 0; i <= 4; i++)
         {
-            if (other.CompareTag("Player") && Input.GetKey(keyCode[i]) && put ==false)
+            if (other.CompareTag("player") && Input.GetKey(keyCode[i]) && put ==false)
             {
                 Debug.Log("触ってる");
                 inv = other.GetComponent<inventory>();
@@ -124,27 +119,22 @@ public class baseComp : MonoBehaviour
                     if (activeID[i] == setItem && setItem == item1Id)
                     {
                         item1C = true;
-                        Clear();
                     }
                     else if (activeID[i] == setItem && setItem == item2Id)
                     {
                         item2C = true;
-                        Clear();
                     }
                     else if (activeID[i] == setItem && setItem == item3Id)
                     {
                         item3C = true;
-                        Clear();
                     }
                     else if (activeID[i] == setItem && setItem == item4Id)
                     {
                         item4C = true;
-                        Clear();
                     }
                     else if (activeID[i] == setItem && setItem == item5Id)
                     {
                         item5C = true;
-                        Clear();
                     }
                     Debug.Log("黒判定: " + item1C);
                     Debug.Log("青判定: " + item2C);
@@ -181,14 +171,6 @@ public class baseComp : MonoBehaviour
             allCrear();
             setFalsePriv();
             put = false;
-        }
-    }
-
-    private void Clear()
-    {
-        if (!AudioSource.isPlaying)
-        {
-            AudioSource.PlayOneShot(clearSound);
         }
     }
     private void allCrear()

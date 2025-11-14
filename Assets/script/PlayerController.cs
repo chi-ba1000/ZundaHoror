@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         //ƒ_ƒbƒVƒ…ˆÚ“®‚µ‚Ä‚é‚Æ‚«Makenoise‚ð”­‰Î‚³‚¹‚é
         if (move != new Vector2 (0f,0f) && isSprint)
         {
-            makenoise?.Makenoise();
+            makenoise.Makenoise();
         }
         {
             
