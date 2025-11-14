@@ -19,6 +19,7 @@ public class zundaAnimaition : MonoBehaviour
     {
         if (charaCon.isGrounded)
         {
+            animator.SetBool("jump", false);
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 resetwalkrun();
@@ -122,21 +123,14 @@ public class zundaAnimaition : MonoBehaviour
     {
         charaMove = context.ReadValue<Vector2>();
         charaMove = new Vector2(Mathf.Round(charaMove.x), Mathf.Round(charaMove.y));
-        Debug.Log(charaMove);
     }
 
     
     public void Onjump(InputAction.CallbackContext context)
     {
-        Debug.Log("jump");
-        if (charaCon.isGrounded)
+        if (charaCon.isGrounded && context.phase == InputActionPhase.Performed)
         {
-            animator.SetBool("Jump", true);
-            Debug.Log("jumped");
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
+            animator.SetBool("jump", true);
         }
     }
 
