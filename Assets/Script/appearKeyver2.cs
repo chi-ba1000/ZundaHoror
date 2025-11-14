@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class appearKeyVer2 : MonoBehaviour
 {
-    [SerializeField] private GameObject keyPrefab, enemyPrefab, player;
+    [SerializeField] private GameObject wallPrefab, enemyPrefab, player;
     [SerializeField] private float keyX = 0, keyY = 0, keyZ = 0 ,enemyRangeX = 0 ,enemyRangeZ = 2;
     //daiza型の配列
     [SerializeField] private baseComp[] baseScript = new baseComp[5];
@@ -29,7 +29,7 @@ public class appearKeyVer2 : MonoBehaviour
 
         if (keyC == false && item1.put && item2.put && item3.put && item4.put && item5.put && item1.item1C && item2.item2C && item3.item3C && item4.item4C && item5.item5C)
         {
-            Instantiate(keyPrefab, keyPos, Quaternion.identity);
+            wallPrefab.setActive(false);
             keyC = true;
         }
         else if (enemyC == false && item1.put && item2.put && item3.put && item4.put && item5.put && (item1.item1C == false || item2.item2C == false || item3.item3C == false || item4.item4C == false || item5.item5C == false))

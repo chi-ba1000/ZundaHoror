@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool isGround;
     private float speed;
     private float ypower;
-    private float rotation_powerX = 26.395f;//‚±‚Ì”š‚ÍƒfƒtƒH‚ÌNeck‚ÌŠp“x
+    private float rotation_powerX = 26.395f;//ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½Íƒfï¿½tï¿½Hï¿½ï¿½Neckï¿½ÌŠpï¿½x
     private Vector2 move;
     private Vector2 mouse_input;
     private Vector3 inertia;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ƒ_ƒbƒVƒ…ˆÚ“®‚µ‚Ä‚é‚Æ‚«Makenoise‚ğ”­‰Î‚³‚¹‚é
+        //ï¿½_ï¿½bï¿½Vï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½Æ‚ï¿½Makenoiseï¿½ğ”­‰Î‚ï¿½ï¿½ï¿½ï¿½ï¿½
         if (move != new Vector2 (0f,0f) && isSprint)
         {
             makenoise?.Makenoise();
@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
         {
             
         }
-        //ˆÚ“®Œn
-        //Še•ûŒü‚É‘Î‚µ‚ÄˆÙ‚È‚éˆÚ“®‘¬“x‚Ì‘ã“ü
+        //ï¿½Ú“ï¿½ï¿½n
+        //ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½É‘Î‚ï¿½ï¿½ÄˆÙ‚È‚ï¿½Ú“ï¿½ï¿½ï¿½ï¿½xï¿½Ì‘ï¿½ï¿½
         if (move.y > 0f)
         {
             if (isSprint)
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-            //Ú’n‚Æ‘Ø‹ó‚Ìˆ—
+            //ï¿½Ú’nï¿½ï¿½ï¿½Æ‘Ø‹ó‚Ìï¿½ï¿½ï¿½
             if (isJump && isGround)
         {
             ypower = jumppower;
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         else if (isGround)
         {
             Debug.Log("grounded");
-            //Ú’n‚µ‚Ä‚¢‚é‚Æ‚«CƒL[“ü—Í‚ğó‚¯æ‚è‘OƒtƒŒ[ƒ€‚Ì•ÏˆÊ‚ğ“ü—Í‚³‚ê‚½’l‚É™X‚É•Ï‰»‚³‚¹‚é
+            //ï¿½Ú’nï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Cï¿½Lï¿½[ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ó‚¯ï¿½ï¿½Oï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ì•ÏˆÊ‚ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ê‚½ï¿½lï¿½Éï¿½ï¿½Xï¿½É•Ï‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Vector3 newinertia = transform.TransformDirection(new Vector3(move.x * speed * 0.01f, 0f, move.y * speed * 0.01f));
             inertia = Vector3.MoveTowards(inertia, newinertia, framepermove * Time.deltaTime);
 
@@ -98,20 +98,23 @@ public class PlayerController : MonoBehaviour
             ypower = 0f;
         }
 
-        //d—Í‚ğè“®‚Å’è‹`‚µCƒL[“ü—Í‚Æ‡¬‚µƒLƒƒƒ‰ƒNƒ^[‚ğ“®‚©‚·
+        //ï¿½dï¿½Í‚ï¿½ï¿½è“®ï¿½Å’ï¿½`ï¿½ï¿½ï¿½Cï¿½Lï¿½[ï¿½ï¿½ï¿½Í‚Æï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ğ“®‚ï¿½ï¿½ï¿½
         gravity.y += ypower + Physics.gravity.y * Time.deltaTime;
         Vector3 move_dsp = new Vector3(inertia.x, 1.0f * gravity.y * Time.deltaTime, inertia.z);
         Debug.Log(move_dsp);
         Debug.Log(move_dsp);
-        character.Move(move_dsp);
+        if (GetComponent<CharacterController>() != null)
+        {
+            character.Move(move_dsp);
+        }
     }
     private void LateUpdate()
     {
-        //‰ñ“]Œn
-        //ƒ}ƒEƒX‚Ìx“ü—Í‚ğ‡¬‚µC‚»‚ê‚¼‚ê‚Ì‰ñ“]‚ğ‚³‚¹‚é
+        //ï¿½ï¿½]ï¿½n
+        //ï¿½}ï¿½Eï¿½Xï¿½ï¿½xï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ê‚¼ï¿½ï¿½Ì‰ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float rotation_powerY = sensitivity * 0.01f * mouse_input.x;
         transform.Rotate(0, rotation_powerY, 0, Space.Self);
-        //¡‚Ìƒ[ƒJƒ‹‰ñ“]‚ğæ“¾‚µCã‰º•ûŒü‚Ì‰ñ“]Šp‚ğ§ŒÀ‚µCƒ}ƒEƒX‚Ìy“ü—Í‚ğ‡¬@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚ª‚ ‚è‚»‚¤
+        //ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Cï¿½ã‰ºï¿½ï¿½ï¿½ï¿½ï¿½Ì‰ï¿½]ï¿½pï¿½ğ§Œï¿½ï¿½ï¿½ï¿½Cï¿½}ï¿½Eï¿½Xï¿½ï¿½yï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‚»ï¿½ï¿½
         Vector3 rotation = neck.localEulerAngles;
         
         rotation_powerX += sensitivity * 0.01f * -mouse_input.y;
@@ -123,7 +126,7 @@ public class PlayerController : MonoBehaviour
         fpsCamera.transform.localRotation = Quaternion.Euler(rotation_powerX - 26.395f, 0, 0);
     }
 
-    //InputActionŒn
+    //InputActionï¿½n
     public void Onmove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -148,7 +151,7 @@ public class PlayerController : MonoBehaviour
         mouse_input = context.ReadValue<Vector2>();
     }
 
-    //ƒ_ƒ[ƒWˆ—Enemyƒ^ƒO‚Â‚¯‚Ä‚éƒIƒuƒWƒFƒNƒg‚É“–‚½‚Á‚½‚Æ‚«”­‰Î
+    //ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½Enemyï¿½^ï¿½Oï¿½Â‚ï¿½ï¿½Ä‚ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -159,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Ú’n”»’è‚Í—ÎA‹ó’†‚É‚¢‚é‚Æ‚«‚ÍÔ‚É‚·‚é
+        // ï¿½Ú’nï¿½ï¿½ï¿½èï¿½Í—ÎAï¿½ó’†‚É‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÍÔ‚É‚ï¿½ï¿½ï¿½
         Gizmos.color = isGround ? Color.green : Color.red;
         Gizmos.DrawRay(transform.position + Vector3.up * rayoffset, Vector3.down * grounddetect);
     }

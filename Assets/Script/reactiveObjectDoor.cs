@@ -17,12 +17,11 @@ public class reactiveObjectDoor : MonoBehaviour
     private void Start()
     {
         AudioSource = GetComponent<AudioSource>();
+        Transform doorshaft = transform.parent.parent;
+        closePos = doorshaft.rotation;
     }
     private void OnTriggerStay(Collider other)
     {
-        Transform doorshaft = transform.parent.parent;
-        closePos = doorshaft.localRotation;
-
         if (((other.CompareTag("Player") && Input.GetKey(KeyCode.F))|| other.CompareTag("Enemy")))
         {
             StartCoroutine(DoorOpen());
@@ -58,7 +57,7 @@ public class reactiveObjectDoor : MonoBehaviour
             float openState = waitTime / openTime;
             
             //quaternion.slerp – 球面線形補間、一つ目の要素と二つ目の要素の間を３つ目の要素の状態で移動
-            doorbasis.localRotation = Quaternion.Slerp(closePos, openPos, openState);
+            doorbasis.rotation = Quaternion.Slerp(closePos, openPos, openState);
             if (!AudioSource.isPlaying)
             {
                 AudioSource.PlayOneShot(openSound);
@@ -73,11 +72,11 @@ public class reactiveObjectDoor : MonoBehaviour
             waitTime += Time.deltaTime;
             float openState = waitTime / openTime;
 
-            doorbasis.localRotation = Quaternion.Slerp(openPos, closePos, openState);
+            doorbasis.rotation = Quaternion.Slerp(openPos, closePos, openState);
 
             yield return null;
         }
-        doorbasis.localRotation = closePos;
+        doorbasis.rotation = closePos;
         if (!AudioSource.isPlaying)
         {
             AudioSource.PlayOneShot(closeSound);
