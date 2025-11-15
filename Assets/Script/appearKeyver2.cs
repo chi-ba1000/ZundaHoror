@@ -29,7 +29,7 @@ public class appearKeyVer2 : MonoBehaviour
 
         if (keyC == false && item1.put && item2.put && item3.put && item4.put && item5.put && item1.item1C && item2.item2C && item3.item3C && item4.item4C && item5.item5C)
         {
-            wallPrefab.setActive(false);
+            wallPrefab.SetActive(false);
             keyC = true;
         }
         else if (enemyC == false && item1.put && item2.put && item3.put && item4.put && item5.put && (item1.item1C == false || item2.item2C == false || item3.item3C == false || item4.item4C == false || item5.item5C == false))

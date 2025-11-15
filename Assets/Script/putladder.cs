@@ -19,7 +19,7 @@ public class putladder : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             inv = other.GetComponent<inventory>();
             if (Input.GetKeyDown(KeyCode.F))

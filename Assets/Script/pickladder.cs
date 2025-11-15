@@ -18,7 +18,7 @@ public class pickladder : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             if (Input.GetKeyDown(KeyCode.F))
             {

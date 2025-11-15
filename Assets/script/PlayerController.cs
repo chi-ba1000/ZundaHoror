@@ -45,13 +45,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
         //ï¿½_ï¿½bï¿½Vï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½Æ‚ï¿½Makenoiseï¿½ð”­‰Î‚ï¿½ï¿½ï¿½ï¿½ï¿½
-        if (move != new Vector2 (0f,0f) && isSprint)
-=======
-        //ƒ_ƒbƒVƒ…ˆÚ“®‚µ‚Ä‚é‚Æ‚«Makenoise‚ð”­‰Î‚³‚¹‚é
-        if (move != new Vector2(0f, 0f))
->>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
+        //if (move != new Vector2 (0f,0f))
+
+        //ï¿½_ï¿½bï¿½Vï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½Æ‚ï¿½Makenoiseï¿½ð”­‰Î‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (move != new Vector2(0f, 0f) && isSprint)
         {
             if (isSprint)
             {
@@ -68,14 +66,12 @@ public class PlayerController : MonoBehaviour
         {
             isWalk = false;
         }
-<<<<<<< HEAD
         //ï¿½Ú“ï¿½ï¿½n
         //ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½É‘Î‚ï¿½ï¿½ÄˆÙ‚È‚ï¿½Ú“ï¿½ï¿½ï¿½ï¿½xï¿½Ì‘ï¿½ï¿½
-=======
 
-        //ˆÚ“®Œn
-        //Še•ûŒü‚É‘Î‚µ‚ÄˆÙ‚È‚éˆÚ“®‘¬“x‚Ì‘ã“ü
->>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
+        //ï¿½Ú“ï¿½ï¿½n
+        //ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½É‘Î‚ï¿½ï¿½ÄˆÙ‚È‚ï¿½Ú“ï¿½ï¿½ï¿½ï¿½xï¿½Ì‘ï¿½ï¿½
+
         if (move.y > 0f)
         {
             if (isSprint)
@@ -104,14 +100,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
-<<<<<<< HEAD
             //ï¿½Ú’nï¿½ï¿½ï¿½Æ‘Ø‹óŽž‚Ìï¿½ï¿½ï¿½
-            if (isJump && isGround)
-=======
-            //Ú’nŽž‚Æ‘Ø‹óŽž‚Ìˆ—
         if (isJump && isGround)
->>>>>>> d678f1b5cd85b24717f647705a1711dcb3c6d05b
         {
             Debug.Log("jump");
             ypower = jumppower;

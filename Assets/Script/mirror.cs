@@ -15,7 +15,7 @@ public class mirror : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         inventory inv = other.GetComponent<inventory>();
-        if (other.CompareTag("player") && inv.checkItem(activeID) && towel.Id == activeID && Input.GetKey(KeyCode.F))
+        if (other.CompareTag("Player") && inv.checkItem(activeID) && towel.Id == activeID && Input.GetKey(KeyCode.F))
         {
             beforeMirror.SetActive(false);
             afterMirror.SetActive(true);
