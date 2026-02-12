@@ -10,4 +10,4 @@ UI：清水
 一人ひとり知識量と技術量の差を埋めつつ作業を共有することが難しかったです．
 
 プレイ動画
-# https://drive.google.com/file/d/1YuuULQln4i2wLrmwm1mkJJQMWft1BDom/view?usp=sharing
+https://drive.google.com/file/d/1YuuULQln4i2wLrmwm1mkJJQMWft1BDom/view?usp=sharing
