@@ -11,3 +11,25 @@ UI：清水
 
 プレイ動画
 https://drive.google.com/file/d/1YuuULQln4i2wLrmwm1mkJJQMWft1BDom/view?usp=sharing
+# ZundaHorror
+
+## 概要
+2025/6/3製作開始
+<br>Unityで作成したホラーゲームです。サークルメンバー4人で初めてのチーム制作を行い、講義の合間を縫いながら約半年間取り組みました。
+## 分担
+プログラム，ギミック：千葉，滝川
+<br>ストーリー，オブジェクト，音声：武田
+<br>UI：清水
+## プレイ動画・スクリーンショット
+https://drive.google.com/file/d/12Xvw4I8AR_XOMhc44EBArLxKGjxzq_al/view?usp=sharing
+
+## 操作方法
+- W/A/S/D：移動
+- Space：ジャンプ
+- LeftShift：ダッシュ
+- Mouse：視点移動
+
+## 使用技術
+- Unity 6000.0.47f1
+- C#
+- ユニバーサルレンダーパイプライン（URP）
