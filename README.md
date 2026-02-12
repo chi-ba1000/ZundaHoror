@@ -8,3 +8,6 @@ UI：清水
 
 複数人による開発経験がなかったため，githubでの進捗の共有，同時開発，統合時のコンフリクトなど一人での開発では起きない課題が多く苦労しました．
 一人ひとり知識量と技術量の差を埋めつつ作業を共有することが難しかったです．
+
+プレイ動画
+# https://drive.google.com/file/d/1YuuULQln4i2wLrmwm1mkJJQMWft1BDom/view?usp=sharing
