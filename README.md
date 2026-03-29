@@ -10,7 +10,7 @@
 <br>ストーリー，オブジェクト，音声：武田
 <br>UI：清水
 ## プレイ動画・スクリーンショット
-https://drive.google.com/file/d/12Xvw4I8AR_XOMhc44EBArLxKGjxzq_al/view?usp=sharing
+https://drive.google.com/file/d/1YuuULQln4i2wLrmwm1mkJJQMWft1BDom/view?usp=sharing
 
 ## 操作方法
 - W/A/S/D：移動
